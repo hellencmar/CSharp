@@ -3,8 +3,7 @@
     class Cliente
     {
         //Atributo
-        private string nome;
-        private string cpf;
+        private string nome;        
 
         //Propriedade
         public string Nome
@@ -20,17 +19,6 @@
             }
         }
 
-        public string Cpf
-        {
-            get
-            {
-                return cpf;
-            }
-
-            set
-            {
-                cpf = value;
-            }
-        }
+        public string Cpf { get; set;}
     }
 }

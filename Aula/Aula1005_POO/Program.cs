@@ -12,7 +12,11 @@ namespace Aula1005_POO
         {
             Cliente cli = new Cliente();
 
-            cli.
+            cli.Nome = "Godofredo"; //set
+            string nomeCliente = cli.Nome; //get
+
+            cli.Cpf = "12345678909"; //set
+            string cpfCliente = cli.Cpf; //get
         }
     }
 }
