@@ -11,6 +11,10 @@
 
 
         }
+        public Cliente(string nome, string cpf) : base(nome, cpf)
+        {
+
+        }
         
 
     }
