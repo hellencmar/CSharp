@@ -1,6 +1,6 @@
 ﻿namespace Aula1005_POO
 {
-    class Pessoa
+    public abstract class Pessoa
     {
         //Atributo
         private string nome;
@@ -30,7 +30,7 @@
         {
             Nome = nome;
         }
-        public Pessoa(string nome, string cpf)
+        public P(string nome, string cpf)
         {
             Nome = nome;
             Cpf = cpf;
