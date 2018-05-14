@@ -36,6 +36,6 @@
             Cpf = cpf;
         }
 
-        public abstract void ImprimirInfo();
+        public abstract string ImprimirInfo();
     }
 }

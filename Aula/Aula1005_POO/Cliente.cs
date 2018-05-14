@@ -36,7 +36,7 @@ namespace Aula1005_POO
 
         }
        override
-            public void ImprimirInfo()
+            public string ImprimirInfo()
             {
 
                return Nome + ", " + DataNasc.ToShortDateString() + ", " + Idade;
