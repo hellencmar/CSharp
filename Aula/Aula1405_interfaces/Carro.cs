@@ -10,6 +10,12 @@ namespace Aula1405_interfaces
     {
         public int Velocidade { get; set; }
 
+        //chave para o objeto Marca
+        public int MarcaID { get; set; }
+
+        //Propriedade de navegação
+        public virtual Marca _Marca { get; set; }
+
         public Carro()
         {
             Velocidade = 0;

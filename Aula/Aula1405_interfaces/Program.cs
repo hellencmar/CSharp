@@ -33,7 +33,7 @@ namespace Aula1405_interfaces
 
             AcelerarBastante(bus);
             Console.WriteLine(bus.ImprimirInfo());
-
+                    
             Console.ReadKey();
         }
 
