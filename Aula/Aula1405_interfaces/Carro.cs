@@ -13,7 +13,8 @@ namespace Aula1405_interfaces
         public virtual Marca _Marca { get; set; }
 
         public string Modelo { get; set; }
-        
+
+        public Roda[] Rodas { get; set; }
 
         public Carro()
         {

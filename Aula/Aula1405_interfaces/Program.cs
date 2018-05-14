@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Aula1405_interfaces
 {
@@ -33,6 +34,8 @@ namespace Aula1405_interfaces
 
             AcelerarBastante(bus);
             Console.WriteLine(bus.ImprimirInfo());
+
+            CriarRelacionamentos();
                     
             Console.ReadKey();
         }
@@ -54,6 +57,18 @@ namespace Aula1405_interfaces
             m.Nome = "Chevrolet";
 
             c._Marca = m;
+
+            //criando e armazenando rodas 
+            c.Rodas = new List<Roda>();
+            Roda r1 = new Roda();
+            c.Rodas.Add(r1);
+
+            for (int i =0; i <3; i++)
+            {
+                c.Rodas.Add(new Roda());
+            }
+
+            Console.WriteLine("Qtd rodas: " + c.Rodas.Count);
 
             Onibus o = new Onibus();
             o.Modelo = "3100";
