@@ -27,7 +27,7 @@ namespace Aula1005_POO
             Pessoa c = new Cliente();
             Cliente c2 = (Cliente)c; // cast
 
-            Console.WriteLine()
+            Console.WriteLine();
 
             //classes abstratas nao podem ser instanciadas
             //Pessoa p = new Pessoa();          
