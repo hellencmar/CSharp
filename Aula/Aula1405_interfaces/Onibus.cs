@@ -12,6 +12,9 @@ namespace Aula1405_interfaces
         //Propriedade de navegação
         public virtual Marca _Marca { get; set; }
 
+        public string Modelo { get; set; }
+      
+
         public Onibus()
         {
             Velocidade = 0;
