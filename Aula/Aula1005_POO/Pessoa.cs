@@ -30,10 +30,12 @@
         {
             Nome = nome;
         }
-        public P(string nome, string cpf)
+        public Pessoa(string nome, string cpf)
         {
             Nome = nome;
             Cpf = cpf;
         }
+
+        public abstract void ImprimirInfo();
     }
 }

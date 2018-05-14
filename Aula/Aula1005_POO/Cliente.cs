@@ -1,7 +1,27 @@
-﻿namespace Aula1005_POO
+﻿using System;
+
+namespace Aula1005_POO
 {
     class Cliente : Pessoa
     {
+        public DateTime DataNasc { get; set; }
+
+      public string DataQueNasceu
+       {
+          get
+            {
+                return DataNasc.ToShortDateString();
+            }
+        }
+
+        public int Idade
+        {
+            get
+            {
+                return DateTime.Today.Year - DataNasc.Year;
+            }
+        }
+
         public Cliente()
         {
                 
@@ -15,6 +35,13 @@
         {
 
         }
+       override
+            public void ImprimirInfo()
+            {
+
+               return Nome + ", " + DataNasc.ToShortDateString() + ", " + Idade;
+                
+            }
         
 
     }
