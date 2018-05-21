@@ -1,5 +1,6 @@
 ﻿using Aula1705_Camadas.Models;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Aula1705_Camadas.Controllers
 {
@@ -46,6 +47,27 @@ namespace Aula1705_Camadas.Controllers
             Atividade atividade = BuscarPorID(id);
             if (atividade != null)
                 ListaAtividades.Remove(atividade);
+        }
+        public List<Atividade> BuscarPorNome(string nomeAtividade)
+        {
+            List<Atividade> atividadesSelecionadas = new List<Atividade>();
+
+            atividadesSelecionadas = from x in ListaAtividades
+                                     where x.Nome.ToLower().Contains(nomeAtividade.ToLower())
+                                     select x;
+
+            return atividadesSelecionadas.ToList();
+
+            
+        }
+        public List<Atividade> BuscarPorStatus(bool status)
+        {
+            List<Atividade> atividadesSelecionadas = new List<Atividade>();
+
+            atividadesSelecionadas = from x in ListaAtividades
+                                     where x.Ativo == status
+                                     select x;
+            return atividadesSelecionadas.ToList()
         }
     }
 }
