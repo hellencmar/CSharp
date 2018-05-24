@@ -8,11 +8,12 @@ namespace Aula1705_Camadas.Controllers
     {
         //simular a tabela
         private static List<Atividade> ListaAtividades { get; set; } = new List<Atividade>();
+        private static int ultimoIdUtilizado = 0;
 
         //Salvar
         public void Salvar (Atividade atividade)
         {
-            atividade.AtividadeID = ListaAtividades.Count + 1;
+            atividade.AtividadeID = ultimoIdUtilizado++;
             ListaAtividades.Add(atividade);
         }
         //Listar
@@ -48,26 +49,26 @@ namespace Aula1705_Camadas.Controllers
             if (atividade != null)
                 ListaAtividades.Remove(atividade);
         }
-        public List<Atividade> BuscarPorNome(string nomeAtividade)
+        public List<Atividade> BuscarPorNome(string nome)
         {
-            List<Atividade> atividadesSelecionadas = new List<Atividade>();
+            IEnumerable<Atividade> atividadesSelecionadas = new List<Atividade>();
 
             atividadesSelecionadas = from x in ListaAtividades
-                                     where x.Nome.ToLower().Contains(nomeAtividade.ToLower())
+                                     where x.Nome.ToLower().Contains(nome.ToLower())
                                      select x;
 
             return atividadesSelecionadas.ToList();
-
-            
         }
-        public List<Atividade> BuscarPorStatus(bool status)
+        public List<Atividade> BuscarAtivoInativo(bool ativo)
         {
-            List<Atividade> atividadesSelecionadas = new List<Atividade>();
+            IEnumerable<Atividade> atividadesSelecionadas = new List<Atividade>();
 
             atividadesSelecionadas = from x in ListaAtividades
-                                     where x.Ativo == status
+                                     where x.Ativo == ativo
                                      select x;
-            return atividadesSelecionadas.ToList()
+
+            return atividadesSelecionadas.ToList();
         }
+
     }
 }
