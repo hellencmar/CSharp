@@ -1,11 +1,13 @@
 ﻿using Aula1705_Camadas.Controllers;
 using Aula1705_Camadas.Models;
 using System;
+using System.Collections.Generic;
 
 namespace Aula1705_Camadas.Views
 {
     class AtividadesView
     {
+        private AtividadesController atividadeController;
         enum OpcoesMenu
         {
             CriarAtividade = 1,
@@ -16,6 +18,10 @@ namespace Aula1705_Camadas.Views
             BuscarPorNome = 6,
             ListarPorStatus = 7,
             Sair = 9
+        }
+        public AtividadesView()
+        {
+            atividadeController = new AtividadesController();
         }
         public void ExibirMenu()
         {
@@ -77,13 +83,9 @@ namespace Aula1705_Camadas.Views
         }
         public void CriarAtividade()
         {
-            Atividade atividade = new Atividade();
-            Console.Write("Digite o nome da atividade: ");
-            atividade.Nome = Console.ReadLine();
-            atividade.Ativo = true;
+            Atividade atividade = ObterDadosAtividade();
 
-            AtividadesController atividadeCtrl = new AtividadesController();
-            atividadeCtrl.Salvar(atividade);
+            atividadeController.Salvar(atividade);
         }
         private void ListarAtividades()
         {
@@ -141,33 +143,47 @@ namespace Aula1705_Camadas.Views
         }      
         private void BuscarAtividadePorNome()
         {
-            AtividadesController atividadeController = new AtividadesController();
-
-            Console.Write("Digite o nome da atividade: ");
+            Console.Write("Digite o nome da atividade que deseja procurar: ");
             string nomeAtividade = Console.ReadLine();
-            Console.WriteLine("-------- Exibindo ativade(s) buscada(s) ------");
-            foreach (Atividade atividade in atividadeController.BuscarPorNome(nomeAtividade))
+
+            Console.WriteLine("-- Exibindo a lista de atividades por nome --");
+
+            List<Atividade> lista = atividadeController.BuscarPorNome(nomeAtividade);
+
+            if (lista.Count > 0)
             {
-                ExibirDetalhesAtividade();
+                foreach (Atividade a in lista)
+                {
+                    ExibirDetalhesAtividade(a);
+                }
             }
-            Console.WriteLine("----- Fim da lista buscada -----");
+            else
+                Console.WriteLine(" * Lista vazia");
+
+            Console.WriteLine("-- Fim da lista de atividades por nome --");
             Console.ReadKey();
         }
         private void ListarAtividadePorStatus()
-        {       
-         
-            AtividadesController atividadeController = new AtividadesController();
+        {
+            Console.Write("Digite o nome da atividade que deseja procurar: ");
+            string nomeAtividade = Console.ReadLine();
 
-            Console.WriteLine("Deseja listar as ativas ou inativas? (a/i)");
-            bool status = Console.ReadLine() == "a" ? true : false;
-            Console.WriteLine("-------- Exibindo ativade(s) buscada(s) ------");
-            foreach (Atividade atividade in atividadeController.BuscarAtivoInativo(status))
+            Console.WriteLine("-- Exibindo a lista de atividades por nome --");
+
+            List<Atividade> lista = atividadeController.BuscarPorNome(nomeAtividade);
+
+            if (lista.Count > 0)
             {
-                ExibirDetalhesAtividade();
+                foreach (Atividade a in lista)
+                {
+                    ExibirDetalhesAtividade(a);
+                }
             }
-            Console.WriteLine("-------- Fim da lista buscada ------");
-            Console.ReadKey();
+            else
+                Console.WriteLine(" * Lista vazia");
 
+            Console.WriteLine("-- Fim da lista de atividades por nome --");
+            Console.ReadKey();
         }
         private static Atividade ObterDadosAtividade()
         {

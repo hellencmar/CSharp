@@ -49,6 +49,7 @@ namespace Aula1705_Camadas.Controllers
             if (atividade != null)
                 ListaAtividades.Remove(atividade);
         }
+        //Buscar a atividade por nome 
         public List<Atividade> BuscarPorNome(string nome)
         {
             IEnumerable<Atividade> atividadesSelecionadas = new List<Atividade>();
@@ -59,6 +60,7 @@ namespace Aula1705_Camadas.Controllers
 
             return atividadesSelecionadas.ToList();
         }
+        //Buscar por status 
         public List<Atividade> BuscarAtivoInativo(bool ativo)
         {
             IEnumerable<Atividade> atividadesSelecionadas = new List<Atividade>();
