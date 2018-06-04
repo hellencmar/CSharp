@@ -7,6 +7,13 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        
+        <Button x:Name="btnSalvar" Content="Salvar" HorizontalAlignment="Left" Margin="36,30,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="-0.924,5.011" Click="btnSalvar_Click"/>
+        <CheckBox x:Name="checkBox" Content="CheckBox" HorizontalAlignment="Left" Margin="189,33,0,0" VerticalAlignment="Top" Checked="checkBox_Checked"/>
+        <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="348,30,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="comboBox_SelectionChanged">
+            <Button Content="Botao 1"/>
+            <Button Content="Botao 2"/>
+        </ComboBox>
+        <TextBox x:Name="txtNome" HorizontalAlignment="Left" Height="23" Margin="36,182,0,0" TextWrapping="Wrap" Text="Digite seu nome" VerticalAlignment="Top" Width="120" Background="#FCC79696"/>
+
     </Grid>
 </Window>
