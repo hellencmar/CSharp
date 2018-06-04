@@ -1,4 +1,5 @@
-﻿using Modelo;
+﻿using Controllers.DAO;
+using Modelo;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -6,60 +7,48 @@ namespace Controllers
 {
     class UsuariosController
     {
-        private List<Usuario> listUsuarios { get; set; } = new List<Usuario>();
-        private static int UltimoUsuarioID = 1;
+        private Contexto contexto = new Contexto();
+        
         //Salvar
-        public void SalvarUsuario(Usuario usuario)
+        public void SalvarUsuario(Usuario entity)
         {
-            usuario.UsuarioID = UltimoUsuarioID++;
-            listUsuarios.Add(usuario);
+            contexto.Usuarios.Add(entity);
+            contexto.SaveChanges();
         }
         //Editar
-        public void EditarUsuario (int UsuarioID, Usuario usuarioAtualizado)
+        public void EditarUsuario ( Usuario entity)
         {
-            Usuario usuarioAntigo = BuscarUsuarioID(UsuarioID);
-            
-            if(usuarioAntigo != null)
-            {
-                usuarioAntigo.Nome  = usuarioAtualizado.Nome;
-                usuarioAntigo.Ativo = usuarioAtualizado.Ativo;
-            }
+            contexto.Entry(entity).State = System.Data.Entity.EntityState.Modified;
+            contexto.SaveChanges();
         }
         //BuscarID
         public Usuario BuscarUsuarioID(int UsuarioID)
         {
-            foreach (Usuario a in listUsuarios)
-            {
-                if (a.UsuarioID == UsuarioID)                
-                    return a;                
-            }
-
-            return null;
+            return contexto.Usuarios.Find(UsuarioID);
         }
         //Listar todos os usuarios 
         public List<Usuario> ListarTodosUsuarios()
         {
-            return listUsuarios;
+            return contexto.Usuarios.ToList();
         }
         //Listar por nome
         public List<Usuario> ListarPorNome(string nome)
         {
-            IEnumerable<Usuario> usuariosSelecionados = new List<Usuario>();
-
-            usuariosSelecionados = from x in listUsuarios
-                                     where x.Nome.ToLower().Contains(nome.ToLower())
-                                     select x;
-
-            return usuariosSelecionados.ToList();
+            return contexto.Usuarios.Where(a => a.Nome.ToLower() == nome.ToLower()).ToList();
 
         } 
         //Excluir
         public void Excluir (int UsuarioID)
         {
-            Usuario usuario = BuscarUsuarioID(UsuarioID);
+            Usuario a = BuscarUsuarioID(UsuarioID);
 
-            if (usuario != null)
-                listUsuarios.Remove(usuario);
+            if (a != null)
+            {
+               
+                contexto.Entry(a).State = System.Data.Entity.EntityState.Deleted;
+                contexto.SaveChanges();
+
+            }
 
         }
         

@@ -1,4 +1,5 @@
-﻿using Modelos;
+﻿using Controllers.DAO;
+using Modelos;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -6,64 +7,58 @@ namespace Controllers
 {
     class AtividadesController
     {
-        private List<Atividade> listAtividade { get; set; } = new List<Atividade>();
-        private static int UltimoAtividadeID = 1;
+        private Contexto contexto = new Contexto();   
         //Salvar
-        public void SalvarUsuario(Atividade atividade)
+        public void SalvarUsuario(Atividade entity)
         {
-            atividade.AtividadeID= UltimoAtividadeID++;
-            listAtividade.Add(atividade);
+            contexto.Atividades.Add(entity);
+            contexto.SaveChanges();
         }
         //Editar
-        public void EditarAtividade(int AtividadeID, Atividade atividadeAtualizada)
+        public void EditarAtividade(Atividade entity)
         {
-           Atividade atividadeAntiga = BuscarAtividadeID(AtividadeID);
-
-            if (atividadeAntiga != null)
-            {
-                atividadeAntiga.Nome        = atividadeAtualizada.Nome;
-                atividadeAntiga.Descricao   = atividadeAtualizada.Descricao;
-                atividadeAntiga.UsuarioID   = atividadeAtualizada.UsuarioID;
-                atividadeAntiga.CategoriaID = atividadeAtualizada.CategoriaID;
-                atividadeAntiga.Ativo       = atividadeAtualizada.Ativo;
-            }
+            contexto.Entry(entity).State = System.Data.Entity.EntityState.Modified;
+            contexto.SaveChanges();
         }
         //BuscarID
         public Atividade BuscarAtividadeID(int AtividadeID)
         {
-            foreach (Atividade a in listAtividade)
-            {
-                if (a.AtividadeID == AtividadeID)
-                    return a;
-            }
-
-            return null;
+           return contexto.Atividades.Find(AtividadeID);
+            
         }
-        //Listar todos os usuarios 
+        //Listar todos as atividades
         public List<Atividade> ListarTodasAtividades()
         {
-            return listAtividade;
+            return contexto.Atividades.ToList();
         }
         //Listar por nome
         public List<Atividade> ListarPorNome(string nome)
         {
-            IEnumerable<Atividade> atividadesSelecionadas = new List<Atividade>();
+            //LINQ
+            //var atividadesComNome = from a in contexto.Atividades
+            //            where a.Nome == nome
+            //            select a;
+            //return atividadesComNome.ToList();
 
-            atividadesSelecionadas = from x in listAtividade
-                                       where x.Nome.ToLower().Contains(nome.ToLower())
-                                       select x;
-
-            return atividadesSelecionadas.ToList();
+            //LAMBDA
+            return contexto.Atividades.Where(a => a.Nome.ToLower() == nome.ToLower()).ToList();
 
         }
         //Excluir
         public void Excluir(int AtividadeID)
         {
-           Atividade atividade = BuscarAtividadeID(AtividadeID);
+            Atividade a = BuscarAtividadeID(AtividadeID);
 
-            if (atividade != null)
-               listAtividade.Remove(atividade);
+            if (a != null)
+            {
+                //forma1
+                contexto.Atividades.Remove(a);
 
+                //forma2
+                //contexto.Entry(a).State = System.Data.Entity.EntityState.Deleted;
+                contexto.SaveChanges();
+
+            }
         }
 
     }
